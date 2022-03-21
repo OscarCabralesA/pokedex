@@ -10,7 +10,6 @@
 body {
   background-color: #f0f0f0;
   padding: 1%;
-
 }
 
 center {
@@ -58,7 +57,9 @@ td {
   padding-bottom: 2%;
 }
 
-
+a {
+  cursor: pointer;
+}
 
 
 .split {
@@ -78,6 +79,10 @@ td {
   justify-content: center;
 }
 
+.wrap-conent {
+  display: flex;
+  flex-wrap: wrap;
+}
 
 .logo {
   min-width: 5%;
@@ -96,6 +101,14 @@ td {
   width: fit-content;
   max-width: 50%;
   height: 0.1%;
+}
+
+.page {
+  display: flex;
+  overflow-wrap: break-word;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-height: 50%;
 }
 
 .main-pokemon {
@@ -119,7 +132,10 @@ td {
 
 .main-pokemon {
   padding: 1%;
+  max-width: 20%;
+  align-self: center;
 }
+
 
 
 .poke-type, .poke-ability {
@@ -168,16 +184,25 @@ td {
 }
 
 @media screen and (max-width: 600px) {
+  
   .poke-type {
     font-size: 12px;
   }
 }
 
+@media screen and (max-width: 700px){
+  .main-pokemon {
+    max-width: 90%;
+  }
+
+  
+}
+
 .poke-img {
   align-self:center;
-  min-width: 15%;
-  min-height: 15%;
-  max-width: 30%;
+  min-width: 25%;
+  min-height: 25%;
+  max-width: 70%;
   height: auto;
   width: auto;
 }
@@ -258,7 +283,7 @@ td {
 }
 
 #moves table {
-  width: 40%;
+  width: 80%;
 }
 
 #moves th {
@@ -282,7 +307,7 @@ td {
 }
 
 #moves .typeData {
-  min-width: 10%;
+  min-width: 20%;
 }
 
 
@@ -295,6 +320,74 @@ td {
   transform: translateY(-50%);
 }
 
+
+.poke-page {
+  padding: 0;
+  margin: 0;
+  align-self:flex-end;
+}
+
+.poke-entries {
+    max-width: 75%;
+    display: flex;
+    flex-wrap: wrap;
+    align-self: flex-start;
+
+  }
+  
+.poke-card {
+  flex: 1;
+  flex-basis: 15%;
+  flex-shrink: 0;
+  background-color: rgba(62, 128, 172, 0.815);
+ 
+  margin-left: 5%;
+  margin-bottom: 5%;
+  cursor: pointer;
+}
+
+.poke-card:hover {
+  box-shadow: 0px 8px 10px rgba(128, 128, 128, 0.644);
+}
+
+.poke-card img {
+  max-width: 100%;
+}
+
+.poke-card div .poke-type {
+  padding: 2%;
+  box-shadow: none;
+}
+
+.poke-entries a {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 2%;
+}
+
+.poke-card-id {
+  color: #4e4e4e;
+  font-size: 1.25rem;
+}
+
+.poke-card-name {
+  color: #383838;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.poke-entries input {
+  position: relative;
+  width: 5%;
+  min-height: 10%;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 5px 5px rgba(119, 119, 119, 0.616);
+  padding: 1%;
+  text-align: center;
+  font-size: 0.8rem;
+}
 /*@media screen and (prefers-color-scheme: dark) {
 	body, input {
 		color: #f1f1f1;

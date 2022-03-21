@@ -17,8 +17,9 @@ moves: damage_class, type
 
 
 var currentId = 1;
+var currentPage = 1;
 const LAST_ID = 898;
-const pageEntries = 9;
+const ENTRIES_PER_PAGE = 11;
 
 const BASE_URL_POKEMON = 'https://pokeapi.co/api/v2/pokemon/'
 const BASE_URL_IMAGE = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'
@@ -77,7 +78,7 @@ const type_colors = {
     shadow: '#696383', 
 }
 
-const STAT_LENGTH_VALUE = 0.45;
+const STAT_LENGTH_VALUE = 0.65;
 
 
 
@@ -140,7 +141,7 @@ const createPokemonFromJson = async (pokemonData) => {
         moves   
     );
     
-    updateMainPokemon(pokemon);
+    //updateMainPokemon(pokemon);
     return pokemon;
 }
 
@@ -182,7 +183,7 @@ function createMovesFromJson(pokemonMovesData)
 }
 
 
-const fetchPokemon = (id) => {
+/*const fetchMainPokemon = (id) => {
     const url = BASE_URL_POKEMON + id;
     try {
         fetch(url).then((res) => {
@@ -192,6 +193,24 @@ const fetchPokemon = (id) => {
                 createPokemonFromJson(data);
             }
         });
+    } catch (error) {
+        throw error;
+    }
+}*/
+
+const fetchSinglePokemon = async (id) => {
+    const url = BASE_URL_POKEMON + id;
+    try {
+        let res = await fetch(url);
+        let data = await res.json();
+        return data;
+        /*fetch(url).then((res) => {
+            return res.json();
+        }).then((data) => {
+            if (data) {
+                return data;
+            }
+        });*/
     } catch (error) {
         throw error;
     }
@@ -240,12 +259,19 @@ const removeAllChildNodes = (parent) => {
 
 const removeElementsFromClass = (className) => {
     const classElements = document.getElementsByClassName(className);
-    console.log(classElements);
     for (let index = 0; index < classElements.length; index++) {
         const element = classElements.item(index);
         element.parentNode.removeChild(element);
     }
 }
+
+function removeElementsByClass(className){
+    const elements = document.getElementsByClassName(className);
+    while(elements.length > 0){
+        elements[0].parentNode.removeChild(elements[0]);
+    }
+}
+
 
 const setText = (text, id) => {
     let element = document.getElementById(id);
@@ -273,7 +299,7 @@ const getTextFromObjectArray = (array, splitChr, key, key2) => {
     return text;
 }
 
-/*const fetchPokemon = () => {
+/*const fetchMainPokemon = () => {
     const pokeNameInput = document.getElementById(POKESEARCH);
     let pokeName = pokeNameInput.value.toLowerCase();
     const url = BASE_URL_POKEMON + pokeName;
@@ -297,7 +323,7 @@ const nextPokemon = () => {
     else {
         currentId = 1;
     }
-    fetchPokemon(currentId);
+    createAndSetMainPokemon(currentId);
 }
 
 const previousPokemon = () => {
@@ -307,7 +333,7 @@ const previousPokemon = () => {
     else {
         currentId = LAST_ID;
     }
-    fetchPokemon(currentId);
+    createAndSetMainPokemon(currentId);
 }
 
 function updatePokemonList(pokemons) {
@@ -319,18 +345,29 @@ function updatePokemonList(pokemons) {
     });
 }
 
-/*fetchPokemonByType("fire");*/
+/*fetchMainPokemonByType("fire");*/
 
+const createAndSetMainPokemon = async (id) => {
+    try {
+        const pokeData = await fetchSinglePokemon(id);
+        const pokemon = await createSinglePokemon(pokeData);
+        
+        updateMainPokemon(pokemon);
+    } catch (error) {
+        img = document.getElementById("sprite");
+        img.src = "https://i.gifer.com/1qqc.gif"
+    }
+
+}
 
 function readAndSearchPokemon()
 {
     const pokeNameInput = document.getElementById(POKESEARCH);
     let pokeName = pokeNameInput.value.toLowerCase();
-    fetchPokemon(pokeName);
+    createAndSetMainPokemon(pokeName);
 }
 
-const drawInfoDrops = (array, container_id, class_name, color_array, color) => {
-    let container = document.getElementById(container_id);
+const drawInfoDrops = (array, container, class_name, color_array, color) => {
 
     array.forEach(text => {
         let drop = document.createElement("div");
@@ -372,7 +409,7 @@ function updateMainPokemon(pokemon){
 
     let abilities = getTextFromObjectArray(pokemon.abilities, ' ', "ability", "name").split(' ');
 
-    drawInfoDrops(abilities, "abilities", "poke-ability", undefined, '#a0a0a0')
+    drawInfoDrops(abilities, document.getElementById("abilities"), "poke-ability", undefined, '#a0a0a0')
 
     /*let forms = getTextFromObjectArray(pokemon.forms,  ', ', "name");
     setText(forms, FORMS);*/
@@ -403,7 +440,7 @@ function updateMainPokemon(pokemon){
     drawStatBar(speed.base_stat, "chart-stat", "speed-stat");
 
     let pokeTypes = getTextFromObjectArray(pokemon.types, ' ', "type", "name").split(' ');
-    drawInfoDrops(pokeTypes, "types", "poke-type", type_colors);
+    drawInfoDrops(pokeTypes, document.getElementById("types"), "poke-type", type_colors);
     /*let pokeTypesDivContainer = document.getElementById("types");
     pokeTypes.forEach(type => {
         let pokeTypeDiv = document.createElement('div');
@@ -477,7 +514,6 @@ function updateMainPokemon(pokemon){
 function clearPokeInfo()
 {
     let container;
-    let classElements;
 
     setText('', ID);
     setText('', NAME);
@@ -526,6 +562,111 @@ function clearPokeInfo()
     removeAllChildNodes(pokeTypesDivContainer);
 }
 
+const setPokemonPage = async (pageNumber) => {
+    if (pageNumber > Math.round(LAST_ID / ENTRIES_PER_PAGE) || pageNumber < 1)
+    {
+        return;
+    }
+    removePageEntries();
+    document.getElementById("pageNumber").value = pageNumber;
+    
+    let firstIndex = ENTRIES_PER_PAGE * pageNumber - (ENTRIES_PER_PAGE - 1);
+    let container = document.getElementById("pokeList");
+
+    for (let index = firstIndex; index < ENTRIES_PER_PAGE * pageNumber; index++) {
+        let pokemonCard = document.createElement("div");
+        pokemonCard.className = "poke-card";
+        
+        // temp
+        pokemonCard.id = "poke-card";
+        
+        
+        let pokeData = await fetchSinglePokemon(index + 1);
+        let pokemon = createSinglePokemon(pokeData);
+
+        let id = document.createElement("p");
+        id.className = "poke-card-id";
+        id.textContent = (await pokemon).id;
+
+        let img = document.createElement("img");
+        img.src = (await pokemon).img;
+
+        let name = document.createElement("p");
+        name.className = "poke-card-name";
+        name.textContent = (await pokemon).name;
+
+        let typesContainer = document.createElement("div");
+        typesContainer.className = "split center";
+
+        let pokeTypes = getTextFromObjectArray((await pokemon).types, ' ', "type", "name").split(' ');
+        drawInfoDrops(pokeTypes, typesContainer, "poke-type", type_colors);
+
+        pokemonCard.appendChild(id);
+        pokemonCard.appendChild(img);
+        pokemonCard.appendChild(typesContainer);
+        pokemonCard.appendChild(name);
+
+        pokemonCard.style.backgroundColor = type_colors[pokeTypes[0]] + '93';
+
+        pokemonCard.onclick = function () {
+            createAndSetMainPokemon(index+1);
+        }
+        
+        container.appendChild(pokemonCard);
+    }
+
+    
+}
+
+const removePageEntries = () => {
+    const container = document.getElementById("pokeList");
+    const cards = document.getElementsByClassName("poke-card");
+    removeElementsByClass("poke-card");
+}
+
+
+const previousPage = () => {
+    if (currentPage > 1) {
+        currentPage--;
+    }
+    else {
+        currentPage = Math.round(LAST_ID / ENTRIES_PER_PAGE);
+    }
+    setPokemonPage(currentPage);
+}
+
+const nextPage = () => {
+    if (currentPage < Math.round(LAST_ID / ENTRIES_PER_PAGE)) {
+        currentPage++;
+    }
+    else {
+        currentPage = 1;
+    }
+    setPokemonPage(currentPage);
+}
+
+const createSinglePokemon = async (pokemonData) => {
+    let stats = createStatsFromJson(pokemonData.stats);
+    let moves = createMovesFromJson(pokemonData.moves);
+    let img = getPokemonImage(pokemonData.id);
+    let description = await fetchSpeciesDescription(pokemonData.species.name);
+    const pokemon = new Pokemon(
+        pokemonData.id, 
+        pokemonData.name, 
+        img,
+        description, 
+        pokemonData.weight, 
+        pokemonData.height, 
+        pokemonData.types,
+        pokemonData.forms, 
+        pokemonData.abilities,
+        stats, 
+        moves   
+    );
+    
+    return pokemon;
+}
+
 
 function openTabInfo(evt, tabName) {
     let tabContent, tabLinks;
@@ -548,7 +689,7 @@ function openTabInfo(evt, tabName) {
 }
 
 
-fetchPokemon(currentId);
+createAndSetMainPokemon(currentId);
 
 
 //var searchBtn = document.getElementById("searchBtn");
@@ -567,6 +708,13 @@ input.addEventListener("keydown", function(event) {
     }
   });
 
+pageNumberElement = document.getElementById("pageNumber");
 
+pageNumberElement.addEventListener("keydown", function (event) {
+    if (event.keyCode === 13) {
+        setPokemonPage(pageNumberElement.value);
+    }
+})
 
 document.getElementById("statsBt").click();
+setPokemonPage(1);

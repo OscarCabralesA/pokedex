@@ -19,112 +19,124 @@
         </center>
     </header>
     
-    <section class="main-pokemon">
-        <center>
-            <div class="split center">
-                <a  onclick="previousPokemon()"><<</a>
-                <p class="poke-id" id="id"></p>
-                <a  onclick="nextPokemon()">>></a>
-            </div>
-            <div style="display: inline-block;">
-                <img class="poke-img" src="" alt="pokemon" id="sprite">
-            </div>
-        
-            <h2 id="name"></h2>
-        </center>
-        <div class="split center" id="types"></div>
-        <div>
-            <p class="poke-description" id="description"></p>
-        </div>
-        
-        
-        <div class="split space-around">
-            <div>
-                <center><h3>WEIGHT</h3></center>
-                <center id="weight"></center>
-            </div>
-            <div>
-                <center><h3>HEIGHT</h3></center>
-                <center id="height"></center>
-            </div>
-        </div>
-        <div style="margin-top: 3%;">
-            <center><h3>ABILITIES</h3></center>
-            <div id="abilities" class="split center"></div>
-        </div>
-        <div class="split space-around">
-            <!--<div>
-                <center><h3>Forms</h3></center>
-            </div>-->
-        </div>
-
-        <div class="pokemonTab split space-around">
-            <button onclick="openTabInfo(event, 'stats')" class="tablinks" id="statsBt">Stats</button>
-            <button onclick="openTabInfo(event, 'moves')" class="tablinks" id="movesBt">Moves</button>
-        </div>
-        <div id="stats" class="tabcontent">
+    <section class="page">
+        <section class="main-pokemon">
             <center>
-                <table>
-                    <tr>
-                        <td class="table-concept">HP</td>
-                        <td class="table-data" id="hp"></td>
-                        <td id="hp-stat" class="stat-container"></td>
-                    </tr>
-                    <tr>
-                        <td class="table-concept">Attack</td>
-                        <td class="table-data" id="attack"></td>
-                        <td id="attack-stat" class="stat-container"></td>
-                    </tr>
-                    <tr>
-                        <td class="table-concept">Defense</td>
-                        <td class="table-data" id="defense"></td>
-                        <td id="defense-stat" class="stat-container"></td>
-                    </tr>
-                    <tr>
-                        <td class="table-concept">Sp. Atk</td>
-                        <td class="table-data" id="spAtk"></td>
-                        <td class="stat-container" id="spAtk-stat"></td>
-                    </tr>
-                    <tr>
-                        <td class="table-concept">Sp. Def</td>
-                        <td class="table-data" id="spDef"></td>
-                        <td class="stat-container" id="spDef-stat"></td>
-                    </tr>
-                    <tr>
-                        <td class="table-concept">Speed</td>
-                        <td class="table-data" id="speed"></td>
-                        <td class="stat-container" id="speed-stat"></td>
-                    </tr>
-                    <tr>
-                        <td class="table-concept">Total</td>
-                        <td class="table-data" id="total"></td>
-                        <td class="stat-container" id="total-stat"></td>
-                    </tr>
-                </table>
-
+                <div class="split center">
+                    <a  onclick="previousPokemon()"><<</a>
+                    <p class="poke-id" id="id"></p>
+                    <a  onclick="nextPokemon()">>></a>
+                </div>
+                <div style="display: inline-block;">
+                    <img class="poke-img" src="" alt="pokemon" id="sprite">
+                </div>
+            
+                <h2 id="name"></h2>
             </center>
+            <div class="split center" id="types"></div>
+            <div>
+                <p class="poke-description" id="description"></p>
+            </div>
+            
+            
+            <div class="split space-around">
+                <div>
+                    <center><h3>WEIGHT</h3></center>
+                    <center id="weight"></center>
+                </div>
+                <div>
+                    <center><h3>HEIGHT</h3></center>
+                    <center id="height"></center>
+                </div>
+            </div>
+            <div style="margin-top: 3%;">
+                <center><h3>ABILITIES</h3></center>
+                <div id="abilities" class="split center"></div>
+            </div>
+            <div class="split space-around">
+                <!--<div>
+                    <center><h3>Forms</h3></center>
+                </div>-->
+            </div>
+    
+            <div class="pokemonTab split space-around">
+                <button onclick="openTabInfo(event, 'stats')" class="tablinks" id="statsBt">Stats</button>
+                <button onclick="openTabInfo(event, 'moves')" class="tablinks" id="movesBt">Moves</button>
+            </div>
+            <div id="stats" class="tabcontent">
+                <center>
+                    <table>
+                        <tr>
+                            <td class="table-concept">HP</td>
+                            <td class="table-data" id="hp"></td>
+                            <td id="hp-stat" class="stat-container"></td>
+                        </tr>
+                        <tr>
+                            <td class="table-concept">Attack</td>
+                            <td class="table-data" id="attack"></td>
+                            <td id="attack-stat" class="stat-container"></td>
+                        </tr>
+                        <tr>
+                            <td class="table-concept">Defense</td>
+                            <td class="table-data" id="defense"></td>
+                            <td id="defense-stat" class="stat-container"></td>
+                        </tr>
+                        <tr>
+                            <td class="table-concept">Sp. Atk</td>
+                            <td class="table-data" id="spAtk"></td>
+                            <td class="stat-container" id="spAtk-stat"></td>
+                        </tr>
+                        <tr>
+                            <td class="table-concept">Sp. Def</td>
+                            <td class="table-data" id="spDef"></td>
+                            <td class="stat-container" id="spDef-stat"></td>
+                        </tr>
+                        <tr>
+                            <td class="table-concept">Speed</td>
+                            <td class="table-data" id="speed"></td>
+                            <td class="stat-container" id="speed-stat"></td>
+                        </tr>
+                        <tr>
+                            <td class="table-concept">Total</td>
+                            <td class="table-data" id="total"></td>
+                            <td class="stat-container" id="total-stat"></td>
+                        </tr>
+                    </table>
+    
+                </center>
+            </div>
+            <div id="moves" class="tabcontent">
+                <center>
+                    <table id="movesTable">
+                        <tr>
+                            <th class="table-header">Name</th>
+                            <th class="table-header">Damage Class</th>
+                            <th class="table-header">Type</th>
+                            <!--<th class="table-ehader">Entry</th>-->
+                        </tr>
+                    </table>
+                </center>
+            </div>
+        </section>
+        
+        <div id="pokeList" class="poke-entries">
+            <div class="split center" style="flex-basis: 100%;" >
+                <a  onclick="previousPage()"><<</a>
+                <input type="number" id="pageNumber" name="pageNumber" value="1">
+                <a  onclick="nextPage()">>></a>
+            </div>
+            
         </div>
-        <div id="moves" class="tabcontent">
+        <section class="poke-page" style="flex-direction: column;">
             <center>
-                <table id="movesTable">
-                    <tr>
-                        <th class="table-header">Name</th>
-                        <th class="table-header">Damage Class</th>
-                        <th class="table-header">Type</th>
-                        <!--<th class="table-ehader">Entry</th>-->
-                    </tr>
-                </table>
             </center>
-        </div>
+            
+        </section>
+        
     </section>
 
     
 
-    <section class="split">
-        <div id="pokeList" class="">
-            
-        </div>
-    </section>
     
 </body>
 <footer>
