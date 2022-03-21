@@ -21,10 +21,13 @@
     
     <section class="main-pokemon">
         <center>
-            <p class="poke-id" id="id"></p>
+            <div class="split center">
+                <a  onclick="previousPokemon()"><<</a>
+                <p class="poke-id" id="id"></p>
+                <a  onclick="nextPokemon()">>></a>
+            </div>
             <div style="display: inline-block;">
                 <img class="poke-img" src="" alt="pokemon" id="sprite">
-
             </div>
         
             <h2 id="name"></h2>

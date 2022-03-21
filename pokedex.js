@@ -16,7 +16,7 @@ moves: damage_class, type
 // current total number of pokemon
 
 
-
+var currentId = 1;
 const LAST_ID = 898;
 const pageEntries = 9;
 
@@ -218,7 +218,7 @@ const fetchSpeciesDescription = async (species) => {
         let res = await fetch(url);
         result = await res.json();
         if (result) {
-            return result.flavor_text_entries.find(d => d.language.name == 'en').flavor_text.replace('', '');
+            return result.flavor_text_entries.find(d => d.language.name == 'en').flavor_text.replace('', '\n');
         }
     } catch (error)
     {
@@ -290,7 +290,25 @@ const getTextFromObjectArray = (array, splitChr, key, key2) => {
     }
 }*/
 
+const nextPokemon = () => {
+    if (currentId < LAST_ID) {
+        currentId++;
+    }
+    else {
+        currentId = 1;
+    }
+    fetchPokemon(currentId);
+}
 
+const previousPokemon = () => {
+    if (currentId > 1) {
+        currentId--;
+    }
+    else {
+        currentId = LAST_ID;
+    }
+    fetchPokemon(currentId);
+}
 
 function updatePokemonList(pokemons) {
     let pokeList = document.getElementById("pokeList");
@@ -344,6 +362,7 @@ const drawStatBar = (value, class_name, id) => {
 
 function updateMainPokemon(pokemon){
     clearPokeInfo();
+    currentId = pokemon.id;
     setText('# ' + pokemon.id, ID);
     setText(pokemon.name, NAME);
     setImg(pokemon.img, SPRITE);
@@ -529,7 +548,7 @@ function openTabInfo(evt, tabName) {
 }
 
 
-fetchPokemon(1);
+fetchPokemon(currentId);
 
 
 //var searchBtn = document.getElementById("searchBtn");
