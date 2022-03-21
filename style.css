@@ -1,0 +1,316 @@
+:root {
+  --p-color: rgb(105, 105, 105);
+  --max-stat-width: 90%;
+}
+
+* {
+  font-family: sans-serif;
+}
+
+body {
+  background-color: #f0f0f0;
+  padding: 1%;
+
+}
+
+center {
+  background-color: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  position: relative;
+  margin-bottom: 2%;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-weight: bolder;
+  margin-bottom: 1.5%;
+  font-size:1.5vmax;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+p {
+  font-size: 1rem;
+  padding-left: 10%;
+  padding-right: 10%;
+  color: var(--p-color);
+}
+
+table {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+td {
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+
+
+
+.split {
+  display: flex;
+  align-items: center;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.center {
+  justify-content: center;
+}
+
+
+.logo {
+  min-width: 5%;
+  width: 5%;
+  max-width: 100%;
+}
+
+.search-bar {
+  position: relative;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 5px 5px rgba(119, 119, 119, 0.616);
+  padding: 1%;
+  text-align: center;
+  font-size: 0.8rem;
+  width: fit-content;
+  max-width: 50%;
+  height: 0.1%;
+}
+
+.main-pokemon {
+  background-color: #f8f8f8;
+  box-shadow: 5px 5px 5px #a0a0a0;
+  border-radius: 15px;
+  min-width: 5%;
+}
+
+.main-pokemon .poke-id {
+  font-size: 2rem;
+  font-weight: lighter;
+  color: #929292;
+}
+
+
+
+.main-pokemon h2 {
+  font-size: 2rem;
+}
+
+.main-pokemon {
+  padding: 1%;
+}
+
+
+.poke-type, .poke-ability {
+  padding: 0.5%;
+}
+
+.poke-type {
+  border-radius: 5px;
+  box-shadow: 0px 3px 5px #a0a0a0;;
+  width: 5%;
+  height: 0.5%;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 1%;
+  min-width: fit-content;
+  color: rgb(0, 0, 0);
+  text-align: center;
+}
+
+.poke-ability {
+  border-radius: 10px;
+  box-shadow: 0px 3px 5px #a0a0a0;;
+  width: 10%;
+  height: 6%;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 1%;
+  min-width: fit-content;
+  min-height: fit-content;
+  color: rgb(0, 0, 0);
+  text-align: center;  
+}
+
+.poke-description {
+  text-align: center;
+  font-weight: 500;
+}
+
+
+
+
+@media screen and (min-width: 601px) {
+  .poke-type {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .poke-type {
+    font-size: 12px;
+  }
+}
+
+.poke-img {
+  align-self:center;
+  min-width: 15%;
+  min-height: 15%;
+  max-width: 30%;
+  height: auto;
+  width: auto;
+}
+
+/* Style the tab */
+.pokemonTab {
+  margin-top: 2%;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+/* Style the buttons that are used to open the tab content */
+.pokemonTab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  width: 50%;
+  height: 10%;
+  font-size: 0.8rem;
+
+}
+
+/* Change background color of buttons on hover */
+.pokemonTab button:hover {
+  display: flex;
+  justify-content: center;
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.pokemonTab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+.chart-stat::before{
+  content: ".";
+  visibility: hidden;
+}
+
+
+#stats table {
+  position: relative;
+  width: 5%;
+  transform: translateX(-50%);
+}
+
+#stats table .table-concept {
+  text-align: left;
+  width: 8%;
+  font-weight: 600;
+  color: #5e5e5e;
+  font-size: 0.8rem;
+}
+
+#stats table .table-data {
+  text-align: right;
+  width: 5%;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+#moves table td, th {
+  text-align: justify;
+  align-items: center;
+}
+
+#moves table {
+  width: 40%;
+}
+
+#moves th {
+  background-color: rgb(17, 134, 170); 
+  padding: 2%;
+  font-size: 0.7rem;
+}
+
+#moves tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#moves tr:hover {
+  background-color: #ddd;
+}
+
+#moves td {
+  padding: 3%;
+  font-size: 0.8rem;
+  min-width: 3%;
+}
+
+#moves .typeData {
+  min-width: 10%;
+}
+
+
+
+.chart-stat {
+  position: absolute;
+  height: 5%;
+  min-height: 1%;
+  background-color: rgb(17, 134, 170);
+  transform: translateY(-50%);
+}
+
+/*@media screen and (prefers-color-scheme: dark) {
+	body, input {
+		color: #f1f1f1;
+	}
+	body {
+		background: #171717;
+	}
+	.search-bar input {
+		box-shadow: 0 0 0 0.4em #f1f1f1 inset;
+	}
+	.search-bar input:focus,
+	.search-bar input:valid {
+		/*background: #3d3d3d
+		box-shadow: 0 0 0 0.1em #3d3d3d inset;
+	}
+	.search-btn {
+		/*background: #f1f1f1;
+	}
+}*/

@@ -10,92 +10,118 @@
 </head>
 <body>
     <header>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/640px-Pok%C3%A9_Ball_icon.svg.png" alt="pokeball" class="icon-img">
-        <h1>Pokedex</h1>    
+        <center>
+            <img src="https://cdn-icons-png.flaticon.com/512/2094/2094510.png" alt="pokeball" class="logo">
+            <h1>P O K E D E X</h1>
+            <input type="search" class="search-bar" name="searchPokemon" id="searchPokemon" placeholder="name or number">
+            <!--<button id="searchBtn" >search</button>-->
+
+        </center>
     </header>
-    <section>
-        <input type="search" name="searchPokemon" id="searchPokemon">
-        <button id="searchBtn">search</button>
+    
+    <section class="main-pokemon">
+        <center>
+            <p class="poke-id" id="id"></p>
+            <div style="display: inline-block;">
+                <img class="poke-img" src="" alt="pokemon" id="sprite">
 
-        <div class="split">
-            <div>
-                <h2 id="name"></h2>
-                <div class="pokeTypes" id="types"></div>
             </div>
-            <p class="pokeId" id="id"></p>
+        
+            <h2 id="name"></h2>
+        </center>
+        <div class="split center" id="types"></div>
+        <div>
+            <p class="poke-description" id="description"></p>
+        </div>
+        
+        
+        <div class="split space-around">
+            <div>
+                <center><h3>WEIGHT</h3></center>
+                <center id="weight"></center>
+            </div>
+            <div>
+                <center><h3>HEIGHT</h3></center>
+                <center id="height"></center>
+            </div>
+        </div>
+        <div style="margin-top: 3%;">
+            <center><h3>ABILITIES</h3></center>
+            <div id="abilities" class="split center"></div>
+        </div>
+        <div class="split space-around">
+            <!--<div>
+                <center><h3>Forms</h3></center>
+            </div>-->
         </div>
 
-        <img src="" alt="pokemon" id="sprite">
-        <div class="pokemonTab">
-            <button class="tablinks" id="about">About</button>
-            <button class="tablinks" id="stats">Stats</button>
-            <button class="tablinks" id="moves">Moves</button>
-        </div>
-        <div id="about" class="tabcontent">
-            <table>
-                <tr>
-                    <td class="table-concept">Species</td>
-                    <td class="table-data" id="species"></td>
-                </tr>
-                <tr>
-                    <td class="table-concept">Height</td>
-                    <td class="table-data" id="height"></td>
-                </tr>
-                <tr>
-                    <td class="table-concept">Weight</td>
-                    <td class="table-data" id="weight"></td>
-                </tr>
-                <tr>
-                    <td class="table-concept">Abilities</td>
-                    <td class="table-data" id="abilities"></td>
-                </tr>
-                <tr>
-                    <td class="table-concept">Forms</td>
-                    <td class="table-data" id="forms"></td>
-                </tr>
-            </table>
+        <div class="pokemonTab split space-around">
+            <button onclick="openTabInfo(event, 'stats')" class="tablinks" id="statsBt">Stats</button>
+            <button onclick="openTabInfo(event, 'moves')" class="tablinks" id="movesBt">Moves</button>
         </div>
         <div id="stats" class="tabcontent">
-            <table>
-                <tr>
-                    <td class="table-concept">HP</td>
-                    <td class="table-data" id="hp"></td>
-                    <td><div class="stat--small" id="hp-stat"></div></td>
-                </tr>
-                <tr>
-                    <td class="table-concept">Attack</td>
-                    <td class="table-data" id="attack"></td>
-                    <td><div class="stat--small" id="attack-stat"></div></td>
-                </tr>
-                <tr>
-                    <td class="table-concept">Defense</td>
-                    <td class="table-data" id="defense"></td>
-                    <td><div class="stat--small" id="deffense-stat"></div></td>
-                </tr>
-                <tr>
-                    <td class="table-concept">Sp. Atk</td>
-                    <td class="table-data" id="spAtk"></td>
-                    <td><div class="stat--small" id="spAtk-stat"></div></td>
-                </tr>
-                <tr>
-                    <td class="table-concept">Sp. Def</td>
-                    <td class="table-data" id="spDef"></td>
-                    <td><div class="stat--small" id="spDef-stat"></div></td>
-                </tr>
-                <tr>
-                    <td class="table-concept">Speed</td>
-                    <td class="table-data" id="speed"></td>
-                    <td><div class="stat--small" id="speed-stat"></div></td>
-                </tr>
-                <tr>
-                    <td class="table-concept">Total</td>
-                    <td class="table-data" id="total"></td>
-                    <td><div class="stat--small" id="total-stat"></div></td>
-                </tr>
-            </table>
+            <center>
+                <table>
+                    <tr>
+                        <td class="table-concept">HP</td>
+                        <td class="table-data" id="hp"></td>
+                        <td id="hp-stat" class="stat-container"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-concept">Attack</td>
+                        <td class="table-data" id="attack"></td>
+                        <td id="attack-stat" class="stat-container"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-concept">Defense</td>
+                        <td class="table-data" id="defense"></td>
+                        <td id="defense-stat" class="stat-container"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-concept">Sp. Atk</td>
+                        <td class="table-data" id="spAtk"></td>
+                        <td class="stat-container" id="spAtk-stat"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-concept">Sp. Def</td>
+                        <td class="table-data" id="spDef"></td>
+                        <td class="stat-container" id="spDef-stat"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-concept">Speed</td>
+                        <td class="table-data" id="speed"></td>
+                        <td class="stat-container" id="speed-stat"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-concept">Total</td>
+                        <td class="table-data" id="total"></td>
+                        <td class="stat-container" id="total-stat"></td>
+                    </tr>
+                </table>
+
+            </center>
+        </div>
+        <div id="moves" class="tabcontent">
+            <center>
+                <table id="movesTable">
+                    <tr>
+                        <th class="table-header">Name</th>
+                        <th class="table-header">Damage Class</th>
+                        <th class="table-header">Type</th>
+                        <!--<th class="table-ehader">Entry</th>-->
+                    </tr>
+                </table>
+            </center>
         </div>
     </section>
 
+    
+
+    <section class="split">
+        <div id="pokeList" class="">
+            
+        </div>
+    </section>
     
 </body>
 <footer>
