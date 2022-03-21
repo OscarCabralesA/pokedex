@@ -194,8 +194,9 @@ a {
   .main-pokemon {
     max-width: 90%;
   }
-
-  
+  .poke-entries input {
+    min-width: 30%;
+  }
 }
 
 .poke-img {
