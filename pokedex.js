@@ -1,21 +1,3 @@
-/*
-numero id
-tipo
-habilidades
-peso
-estatura
-formas
-stats
-nombre
-sprite
-
-moves: damage_class, type
-
-*/
-
-// current total number of pokemon
-
-
 var currentId = 1;
 var currentPage = 1;
 const LAST_ID = 898;
@@ -81,7 +63,6 @@ const type_colors = {
 const STAT_LENGTH_VALUE = 0.65;
 
 
-
 class Stats {
     total = 0;
     constructor(hp, attack, defense, specialAttack, specialDefense, speed) {
@@ -102,7 +83,6 @@ class Move {
         this.type = type;
     }
 }
-
 
 
 class Pokemon {
@@ -146,8 +126,7 @@ const createPokemonFromJson = async (pokemonData) => {
 }
 
 
-function createStatsFromJson(pokemonStatsData)
-{
+const createStatsFromJson = (pokemonStatsData) => {
     let stats = new Stats(
         pokemonStatsData.find(s => s.stat.name == "hp"), 
         pokemonStatsData.find(s => s.stat.name == "attack"), 
@@ -159,8 +138,7 @@ function createStatsFromJson(pokemonStatsData)
     return stats;
 }
 
-function createMovesFromJson(pokemonMovesData)
-{
+const createMovesFromJson = (pokemonMovesData) => {
     let moves = []
     try {
         pokemonMovesData.forEach(m => {
@@ -170,7 +148,6 @@ function createMovesFromJson(pokemonMovesData)
                 return res.json();
             }).then((data) => {
                 if (data) {
-                    //console.log(data);
                     moves.push(new Move(m.move.name, data.damage_class.name, data.type.name));
                 }
             })
@@ -178,25 +155,8 @@ function createMovesFromJson(pokemonMovesData)
     } catch (error) {
         throw error;
     }
-    //console.log(moves.Move[0]);
     return moves;
 }
-
-
-/*const fetchMainPokemon = (id) => {
-    const url = BASE_URL_POKEMON + id;
-    try {
-        fetch(url).then((res) => {
-            return res.json();
-        }).then((data) => {
-            if (data) {
-                createPokemonFromJson(data);
-            }
-        });
-    } catch (error) {
-        throw error;
-    }
-}*/
 
 const fetchSinglePokemon = async (id) => {
     const url = BASE_URL_POKEMON + id;
@@ -204,13 +164,6 @@ const fetchSinglePokemon = async (id) => {
         let res = await fetch(url);
         let data = await res.json();
         return data;
-        /*fetch(url).then((res) => {
-            return res.json();
-        }).then((data) => {
-            if (data) {
-                return data;
-            }
-        });*/
     } catch (error) {
         throw error;
     }
@@ -257,15 +210,7 @@ const removeAllChildNodes = (parent) => {
     }
 }
 
-const removeElementsFromClass = (className) => {
-    const classElements = document.getElementsByClassName(className);
-    for (let index = 0; index < classElements.length; index++) {
-        const element = classElements.item(index);
-        element.parentNode.removeChild(element);
-    }
-}
-
-function removeElementsByClass(className){
+const removeElementsByClass = (className) => {
     const elements = document.getElementsByClassName(className);
     while(elements.length > 0){
         elements[0].parentNode.removeChild(elements[0]);
@@ -299,22 +244,6 @@ const getTextFromObjectArray = (array, splitChr, key, key2) => {
     return text;
 }
 
-/*const fetchMainPokemon = () => {
-    const pokeNameInput = document.getElementById(POKESEARCH);
-    let pokeName = pokeNameInput.value.toLowerCase();
-    const url = BASE_URL_POKEMON + pokeName;
-    try {
-        fetch(url).then((res) => {
-            return res.json();
-        }).then((data) => {
-            if (data) {
-                updatePokemon(data);
-            }
-        });
-    } catch (error) {
-        throw error;
-    }
-}*/
 
 const nextPokemon = () => {
     if (currentId < LAST_ID) {
@@ -336,7 +265,7 @@ const previousPokemon = () => {
     createAndSetMainPokemon(currentId);
 }
 
-function updatePokemonList(pokemons) {
+const updatePokemonList = (pokemons) => {
     let pokeList = document.getElementById("pokeList");
     pokemons.forEach(pokemon => {
         let pokePreview = document.createElement('p');
@@ -360,8 +289,7 @@ const createAndSetMainPokemon = async (id) => {
 
 }
 
-function readAndSearchPokemon()
-{
+const readAndSearchPokemon = () => {
     const pokeNameInput = document.getElementById(POKESEARCH);
     let pokeName = pokeNameInput.value.toLowerCase();
     createAndSetMainPokemon(pokeName);
@@ -397,7 +325,7 @@ const drawStatBar = (value, class_name, id) => {
 
 
 
-function updateMainPokemon(pokemon){
+const updateMainPokemon = (pokemon) =>{
     clearPokeInfo();
     currentId = pokemon.id;
     setText('# ' + pokemon.id, ID);
@@ -410,9 +338,6 @@ function updateMainPokemon(pokemon){
     let abilities = getTextFromObjectArray(pokemon.abilities, ' ', "ability", "name").split(' ');
 
     drawInfoDrops(abilities, document.getElementById("abilities"), "poke-ability", undefined, '#a0a0a0')
-
-    /*let forms = getTextFromObjectArray(pokemon.forms,  ', ', "name");
-    setText(forms, FORMS);*/
 
     let hp = pokemon.stats.hp;
     setText(hp.base_stat, HP);
@@ -441,17 +366,6 @@ function updateMainPokemon(pokemon){
 
     let pokeTypes = getTextFromObjectArray(pokemon.types, ' ', "type", "name").split(' ');
     drawInfoDrops(pokeTypes, document.getElementById("types"), "poke-type", type_colors);
-    /*let pokeTypesDivContainer = document.getElementById("types");
-    pokeTypes.forEach(type => {
-        let pokeTypeDiv = document.createElement('div');
-        pokeTypeDiv.className = "poke-type";
-        let pokeType = type.type.name;;
-        //let pokeType = document.createElement('p');
-        pokeTypeDiv.textContent = pokeType;
-        pokeTypeDiv.style.backgroundColor = type_colors[pokeType];
-        //pokeTypeDiv.appendChild(pokeType);
-        pokeTypesDivContainer.appendChild(pokeTypeDiv);
-    });*/
 
     let pokeMovesTable = document.getElementById("movesTable");
 
@@ -463,16 +377,11 @@ function updateMainPokemon(pokemon){
         let dmgClssData = document.createElement('td');
         let typeData = document.createElement('td');
         
-        //let entryOpener = document.createElement('summary');
-        //entryOpener.textContent = "Effect entry"
-        //let entry = document.createElement('details');
-        
         nameData.textContent = pokeMoves[i].name;
         dmgClssData.textContent = pokeMoves[i].damageClass;
         typeData.textContent = pokeMoves[i].type;
 
         typeData.style.backgroundColor = type_colors[pokeMoves[i].type];
-        //entry.textContent = pokeMoves[i].entry;
 
         row.className = "move-row";
         nameData.className = "name-data";
@@ -482,37 +391,14 @@ function updateMainPokemon(pokemon){
         row.appendChild(nameData);
         row.appendChild(dmgClssData);
         row.appendChild(typeData);
-        //entryOpener.appendChild(entry);
-
-        //pokeMovesTable.appendChild(entryOpener);
-
         
         pokeMovesTable.appendChild(row);
     }
-    //console.log(pokeMoves[0]);
-
-    /*pokeMoves.forEach(move => {
-        let row = document.createElement('tr');
-        let nameData = document.createElement('td');
-        let dmgClssData = document.createElement('td');
-        let typeData = document.createElement('td');
-        nameData.textContent = move.name;
-        dmgClssData.textContent = move.damageClass;
-        typeData.textContent = move.type;
-        row.appendChild(nameData);
-        row.appendChild(dmgClssData);
-        row.appendChild(typeData);
-        
-        console.log(row);
-        pokeMovesTable.appendChild(row);
-    });*/
-    
     setText(pokemon.stats.total, TOTAL);
 }
 
 
-function clearPokeInfo()
-{
+const clearPokeInfo = () => {
     let container;
 
     setText('', ID);
@@ -547,16 +433,13 @@ function clearPokeInfo()
     container = document.getElementById("speed-stat");
     removeAllChildNodes(container);
     
-    removeElementsFromClass("name-data");
-    removeElementsFromClass("dmgClass-data");
-    removeElementsFromClass("type-data");
-    removeElementsFromClass("move-row");
-
-
+    removeElementsByClass("name-data");
+    removeElementsByClass("dmgClass-data");
+    removeElementsByClass("type-data");
+    removeElementsByClass("move-row");
 
 
     setText('', TOTAL)
-
 
     let pokeTypesDivContainer = document.getElementById("types");
     removeAllChildNodes(pokeTypesDivContainer);
@@ -668,7 +551,7 @@ const createSinglePokemon = async (pokemonData) => {
 }
 
 
-function openTabInfo(evt, tabName) {
+const openTabInfo = (evt, tabName) => {
     let tabContent, tabLinks;
 
     tabContent = document.getElementsByClassName("tabcontent");
@@ -690,7 +573,8 @@ function openTabInfo(evt, tabName) {
 
 
 createAndSetMainPokemon(currentId);
-
+setPokemonPage(1);
+document.getElementById("statsBt").click();
 
 //var searchBtn = document.getElementById("searchBtn");
 var input = document.getElementById("searchPokemon");
@@ -715,6 +599,3 @@ pageNumberElement.addEventListener("keydown", function (event) {
         setPokemonPage(pageNumberElement.value);
     }
 })
-
-document.getElementById("statsBt").click();
-setPokemonPage(1);
